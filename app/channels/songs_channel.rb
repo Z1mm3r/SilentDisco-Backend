@@ -1,6 +1,6 @@
 class SongsChannel < ApplicationCable::Channel
   def subscribed
-    party = Playlist.find(params[:playlist])
+    party = Party.find(params[:party])
     stream_for party
   end
 
