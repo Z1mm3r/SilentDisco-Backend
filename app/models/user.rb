@@ -6,11 +6,15 @@ class User < ApplicationRecord
   validates :name, presence: true
 
   def toJson
-    self.as_json( :methods => :user_playlists, :only => [:name,:id] )
+    self.as_json( :methods => [:user_playlists,:total_likes], :only => [:name,:id] )
   end
 
   def user_playlists
     self.playlists.as_json(:methods => [:songsInPlaylist,:likes], :only => [:user_id,:id,:title] )
+  end
+
+  def total_likes
+    self.playlists.reduce(0){|acc,element| element.likes + acc }
   end
 
 end

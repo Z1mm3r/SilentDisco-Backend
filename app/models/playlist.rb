@@ -11,7 +11,15 @@ class Playlist < ApplicationRecord
   end
 
   def likes
-    self.playlist_likes.length
+    self.playlist_likes.select do |element|
+      element.like
+    end.length
+  end
+
+  def dislikes
+    self.playlist_likes.select do |element|
+      !element.like
+    end.length
   end
 
 end
