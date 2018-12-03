@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_30_202459) do
+ActiveRecord::Schema.define(version: 2018_12_03_152849) do
+
+  create_table "parties", force: :cascade do |t|
+    t.integer "playlist_id"
+  end
 
   create_table "playlist_likes", force: :cascade do |t|
     t.integer "user_id"
