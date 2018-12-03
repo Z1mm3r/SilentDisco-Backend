@@ -47,7 +47,7 @@ class Api::V1::UsersController < ApplicationController
   private
 
   def new_user_params
-    params.require(:buyer).permit(:name,:password)
+    params.require(:playlist).permit(:name,:password)
   end
 
   def find_user
