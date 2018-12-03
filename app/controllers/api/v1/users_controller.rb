@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-
+  skip_before_action :verify_authenticity_token
   before_action :find_user, only: [:show, :edit, :update, :destroy]
 
 
@@ -25,9 +25,16 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def create
-    debugger
-    @user = User.find(new_user_params)
-    render :json => @user.toJson
+    if params[:user][:password_confirmation]
+      @user = User.create(new_user_params)
+    else
+      @user = User.find_by({name: new_user_params[:name]})
+    end
+    if @user.valid?
+      render :json => {user: @user, playlist: @user.playlists}.to_json
+    else
+      render :json => {user: @user, status: 500, errors: @user.errors.full_messages}.to_json
+    end
     #@user.name = params['user']['name']
     #@user.password = params['user']['password']
     #check that user is valid... if not return an error
