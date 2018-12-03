@@ -29,9 +29,9 @@ class Api::V1::UsersController < ApplicationController
       @user = User.find_by({name: new_user_params[:name]})
     end
     if @user.valid?
-      render :json => {user: @user, playlist: @user.playlists}.to_json
+      render :json => {user: @user.toJson}.to_json
     else
-      render :json => {user: @user, status: 500, errors: @user.errors.full_messages}.to_json
+      render :json => {user: @user.toJson, status: 500, errors: @user.errors.full_messages}.to_json
     end
     #@user.name = params['user']['name']
     #@user.password = params['user']['password']
