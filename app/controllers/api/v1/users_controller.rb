@@ -25,7 +25,9 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def create
-    @user = User.create(new_user_params)
+    debugger
+    @user = User.find(new_user_params)
+    render :json => @user.toJson
     #@user.name = params['user']['name']
     #@user.password = params['user']['password']
     #check that user is valid... if not return an error
@@ -47,7 +49,7 @@ class Api::V1::UsersController < ApplicationController
   private
 
   def new_user_params
-    params.require(:playlist).permit(:name,:password)
+    params.require(:user).permit(:name,:password, :password_confirmation)
   end
 
   def find_user
