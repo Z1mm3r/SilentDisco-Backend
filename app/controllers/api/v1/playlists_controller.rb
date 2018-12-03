@@ -24,9 +24,6 @@ class Api::V1::PlaylistsController < ApplicationController
     byebug
     @playlist = Playlist.create(new_playlist_params)
     render :json => @playlist
-    #@playlist.name = params['playlist']['name']
-    #@playlist.password = params['playlist']['password']
-    #check that playlist is valid... if not return an error
   end
 
   def edit
