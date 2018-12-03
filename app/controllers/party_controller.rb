@@ -7,7 +7,7 @@ class PartyController < ApplicationController
       serialized_data = ActiveModelSerializers::Adapter::Json.new(
         PlaylistSerializer.new(playlist)
       ).serializable_hash
-      ActionCable.server.broadcast `party_channel_#{params[:id]}`, serialized_data
+      ActionCable.server.broadcast `party_channel_#{party.id}`, serialized_data
       head :ok
     end
   end
