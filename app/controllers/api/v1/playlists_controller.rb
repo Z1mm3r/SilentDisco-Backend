@@ -21,7 +21,9 @@ class Api::V1::PlaylistsController < ApplicationController
   end
 
   def create
+    byebug
     @playlist = Playlist.create(new_playlist_params)
+    render :json => @playlist
     #@playlist.name = params['playlist']['name']
     #@playlist.password = params['playlist']['password']
     #check that playlist is valid... if not return an error
@@ -43,7 +45,7 @@ class Api::V1::PlaylistsController < ApplicationController
   private
 
   def new_playlist_params
-    params.require(:playlist).permit(:name,:password)
+    params.require(:playlist).permit(:title,:user_id, :playlist => [])
   end
 
   def find_playlist
