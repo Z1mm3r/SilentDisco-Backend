@@ -7,7 +7,7 @@ class Playlist < ApplicationRecord
   validates :title, presence: true
 
   def songsInPlaylist
-    self.songs.as_json(:only => [:url,:id,:name,:artist] )
+    self.songs.map{|song| song.toJson}
   end
 
   def likes
