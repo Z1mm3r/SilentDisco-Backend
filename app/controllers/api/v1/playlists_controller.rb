@@ -23,14 +23,12 @@ class Api::V1::PlaylistsController < ApplicationController
   def create
     @playlist = Playlist.create(new_playlist_params)
     songData = Song.convertJsonToSong(params[:playlist][:playlist])
-    byebug
     songs = songData.map do |song|
       Song.find_by(:url => song[:url]) ? Song.find_by(:url => song[:url]) : Song.create(song)
     end
     songs.each do |song|
       PlaylistSong.create(:playlist_id => @playlist.id, :song_id => song[:id])
     end
-    byebug
     render :json => @playlist.as_json(:methods => [:songsInPlaylist,:likes], :only => [:user_id,:id,:title])
   end
 
