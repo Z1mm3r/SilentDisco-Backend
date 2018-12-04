@@ -21,6 +21,7 @@ class Api::V1::PlaylistsController < ApplicationController
   end
 
   def create
+    byebug
     @playlist = Playlist.create(new_playlist_params)
     render :json => @playlist
   end
